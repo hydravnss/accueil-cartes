@@ -197,3 +197,188 @@ body.ah-on #rm_print_characters_block .ah-creator-dot {
 body.ah-on #rm_print_characters_block .ah-fav {
     color: inherit;
 }
+
+
+/* ===== Écran d'accueil ===== */
+body.ah-on #chat:has(> .welcomePanel) > .mes {
+    display: none !important;
+}
+
+body.ah-on #chat > .welcomePanel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 4px 0 28px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.ah-on .welcomePanel .welcomeHeaderTitle,
+body.ah-on .welcomePanel .welcomeHeader,
+body.ah-on .welcomePanel .showMoreChats,
+body.ah-on .welcomePanel .noRecentChat {
+    display: none !important;
+}
+
+body.ah-on .welcomePanel .welcomeRecent,
+body.ah-on .welcomePanel .recentChatList {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+body.ah-on .welcomePanel .recentChat,
+body.ah-on .welcomePanel .recentChat.hidden {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 14px 16px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+}
+
+body.ah-on .welcomePanel .recentChat .avatar,
+body.ah-on .welcomePanel .recentChat .avatar img {
+    width: 88px !important;
+    height: 88px !important;
+    min-width: 88px !important;
+    min-height: 88px !important;
+    max-width: 88px !important;
+    max-height: 88px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    flex: 0 0 88px !important;
+    align-self: flex-start !important;
+    overflow: hidden !important;
+}
+
+body.ah-on .welcomePanel .recentChat .recentChatInfo {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    gap: 4px !important;
+}
+
+body.ah-on .welcomePanel .recentChat .chatNameContainer,
+body.ah-on .welcomePanel .recentChat .chatName {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+body.ah-on .welcomePanel .recentChat .characterName {
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+    white-space: normal !important;
+}
+
+body.ah-on .welcomePanel .recentChat .chatActions,
+body.ah-on .welcomePanel .recentChat .chatDate,
+body.ah-on .welcomePanel .recentChat .recentChatPinned,
+body.ah-on .welcomePanel .recentChat .chatName > span:not(.characterName),
+body.ah-on .welcomePanel .recentChat .chatMessageContainer,
+body.ah-on .welcomePanel .recentChat .chatMessage,
+body.ah-on .welcomePanel .recentChat .chatStats {
+    display: none !important;
+}
+
+body.ah-on .welcomePanel .recentChat .ah-excerpt.ah-has-desc {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 3 !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    margin: 2px 0 0 !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    font-weight: 400 !important;
+    opacity: 0.62;
+}
+
+body.ah-on .welcomePanel .recentChat .tags_inline.ah-has-tags {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+    width: 100% !important;
+}
+
+body.ah-on .welcomePanel .recentChat .tags_inline .tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 9%, transparent) !important;
+    color: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 64%, transparent) !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 4px 10px !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    flex: 0 0 auto !important;
+}
+
+body.ah-on .welcomePanel .recentChat .tags_inline .tag_remove {
+    display: none !important;
+}
+
+body.ah-on .welcomePanel .ah-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.2;
+    opacity: 0.58;
+    min-width: 0;
+}
+
+body.ah-on .welcomePanel .ah-creator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.ah-on .welcomePanel .ah-creator-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    background: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 16%, transparent);
+    flex: 0 0 18px;
+    text-transform: uppercase;
+}

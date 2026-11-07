@@ -1,5 +1,5 @@
 /**
- * Accueil Cartes — liste des personnages en cartes
+ * Accueil Cartes — écran d'accueil en fil de cartes
  * (image carrée à gauche, titre, extrait, tags).
  */
 
@@ -45,6 +45,24 @@ function applyBodyClass() {
     document.body.classList.toggle('ah-on', !!(settings && settings.enabled));
 }
 
+function characterByAvatar(avatar) {
+    if (!avatar) {
+        return null;
+    }
+    return (ctx().characters || []).find((item) => item && item.avatar === avatar) || null;
+}
+
+function thumbnailFor(item) {
+    try {
+        if (item?.avatar && item.avatar !== 'none' && typeof ctx().getThumbnailUrl === 'function') {
+            return ctx().getThumbnailUrl('avatar', item.avatar);
+        }
+    } catch (err) {
+        console.debug(LOG, 'miniature', err);
+    }
+    return 'img/ai4.png';
+}
+
 function fillDescription(descEl, item, extra) {
     if (!descEl) {
         return;
@@ -59,6 +77,11 @@ function fillDescription(descEl, item, extra) {
             extra ||
             item.first_mes,
         );
+        if (text) {
+            descEl.textContent = text;
+        }
+    } else if (!text && extra) {
+        text = excerpt(extra);
         if (text) {
             descEl.textContent = text;
         }
@@ -153,12 +176,139 @@ function enhanceGroup(el) {
 }
 
 function enhanceList() {
-    applyBodyClass();
-    if (!settings || !settings.enabled) {
-        return;
-    }
     document.querySelectorAll('#rm_print_characters_block .character_select').forEach(enhanceCharacter);
     document.querySelectorAll('#rm_print_characters_block .group_select').forEach(enhanceGroup);
+}
+
+function enhanceWelcomeItem(el) {
+    const avatar = el.getAttribute('data-avatar');
+    const item = characterByAvatar(avatar);
+    const info = el.querySelector('.recentChatInfo') || el;
+
+    let desc = info.querySelector(':scope > .ah-excerpt');
+    if (!desc) {
+        desc = document.createElement('div');
+        desc.className = 'ch_description ah-excerpt';
+        const nameBlock = info.querySelector('.chatNameContainer');
+        if (nameBlock) {
+            nameBlock.after(desc);
+        } else {
+            info.appendChild(desc);
+        }
+    }
+    const fallbackMes = excerpt(el.querySelector('.chatMessage')?.textContent);
+    fillDescription(desc, item, fallbackMes);
+
+    let tags = info.querySelector(':scope > .tags_inline');
+    if (!tags) {
+        tags = document.createElement('div');
+        tags.className = 'tags tags_inline';
+        desc.after(tags);
+    }
+    fillFallbackTags(tags, item);
+    if (item) {
+        upsertMeta(info, item);
+    }
+}
+
+function createHomeCard(item, id) {
+    const el = document.createElement('div');
+    el.className = 'recentChat ah-home-card';
+    el.dataset.chid = String(id);
+    if (item.avatar) {
+        el.dataset.avatar = item.avatar;
+    }
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    const img = document.createElement('img');
+    img.src = thumbnailFor(item);
+    img.alt = item.name || '';
+    avatar.appendChild(img);
+
+    const info = document.createElement('div');
+    info.className = 'recentChatInfo';
+
+    const nameWrap = document.createElement('div');
+    nameWrap.className = 'chatNameContainer';
+    const chatName = document.createElement('div');
+    chatName.className = 'chatName';
+    const strong = document.createElement('strong');
+    strong.className = 'characterName';
+    strong.textContent = item.name || '';
+    chatName.appendChild(strong);
+    nameWrap.appendChild(chatName);
+    info.appendChild(nameWrap);
+
+    const desc = document.createElement('div');
+    desc.className = 'ch_description ah-excerpt';
+    info.appendChild(desc);
+
+    const tags = document.createElement('div');
+    tags.className = 'tags tags_inline';
+    info.appendChild(tags);
+
+    el.appendChild(avatar);
+    el.appendChild(info);
+
+    fillDescription(desc, item);
+    fillFallbackTags(tags, item);
+    upsertMeta(info, item);
+
+    el.addEventListener('click', async () => {
+        try {
+            await ctx().selectCharacterById(id);
+        } catch (err) {
+            console.debug(LOG, 'ouverture personnage', err);
+        }
+    });
+
+    return el;
+}
+
+function injectHomeCatalog(panel) {
+    const list = panel.querySelector('.recentChatList');
+    if (!list) {
+        return;
+    }
+    const shown = new Set(
+        [...list.querySelectorAll('.recentChat[data-avatar]')]
+            .map((el) => el.getAttribute('data-avatar'))
+            .filter(Boolean),
+    );
+    const characters = ctx().characters || [];
+    characters.forEach((item, id) => {
+        if (!item || !item.avatar || shown.has(item.avatar)) {
+            return;
+        }
+        list.appendChild(createHomeCard(item, id));
+        shown.add(item.avatar);
+    });
+}
+
+function enhanceWelcome() {
+    const panel = document.querySelector('#chat > .welcomePanel');
+    if (!panel) {
+        return;
+    }
+    if (!settings || !settings.enabled) {
+        panel.querySelectorAll('.ah-home-card').forEach((el) => el.remove());
+        return;
+    }
+    panel.classList.remove('recentHidden');
+    panel.querySelectorAll('.recentChat.hidden').forEach((el) => el.classList.remove('hidden'));
+    panel.querySelectorAll('.recentChat:not(.ah-home-card)').forEach(enhanceWelcomeItem);
+    injectHomeCatalog(panel);
+}
+
+function applyAll() {
+    applyBodyClass();
+    if (!settings || !settings.enabled) {
+        document.querySelectorAll('.welcomePanel .ah-home-card').forEach((el) => el.remove());
+        return;
+    }
+    enhanceList();
+    enhanceWelcome();
 }
 
 const SETTINGS_HTML = `
@@ -169,7 +319,7 @@ const SETTINGS_HTML = `
       <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
     </div>
     <div class="inline-drawer-content">
-      <div class="af-hint">Affiche la liste des personnages comme un fil de cartes : image à gauche, titre, extrait et tags à droite.</div>
+      <div class="af-hint">Transforme l’écran d’accueil en fil de cartes : image à gauche, titre, extrait et tags à droite.</div>
       <div class="af-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">
         <label for="ah_enabled">Activer</label>
         <input type="checkbox" id="ah_enabled">
@@ -184,8 +334,7 @@ function bindSettingsUi() {
     box.addEventListener('input', () => {
         settings.enabled = box.checked;
         save();
-        applyBodyClass();
-        enhanceList();
+        applyAll();
     });
 }
 
@@ -193,15 +342,16 @@ jQuery(async () => {
     loadSettings();
     window.jQuery('#extensions_settings2').append(SETTINGS_HTML);
     bindSettingsUi();
-    enhanceList();
+    applyAll();
 
     try {
         const { eventSource, event_types } = ctx();
-        eventSource.on(event_types.APP_READY, enhanceList);
-        eventSource.on(event_types.CHARACTER_PAGE_LOADED, enhanceList);
+        eventSource.on(event_types.APP_READY, applyAll);
+        eventSource.on(event_types.CHAT_CHANGED, applyAll);
+        eventSource.on(event_types.CHARACTER_PAGE_LOADED, applyAll);
         eventSource.on(event_types.SETTINGS_LOADED_AFTER, () => {
             loadSettings();
-            enhanceList();
+            applyAll();
         });
     } catch (err) {
         console.debug(LOG, 'évènements indisponibles', err);
@@ -210,6 +360,11 @@ jQuery(async () => {
     const list = document.getElementById('rm_print_characters_block');
     if (list) {
         new MutationObserver(() => enhanceList()).observe(list, { childList: true });
+    }
+
+    const chat = document.getElementById('chat');
+    if (chat) {
+        new MutationObserver(() => enhanceWelcome()).observe(chat, { childList: true });
     }
 
     console.log(LOG, 'chargé');

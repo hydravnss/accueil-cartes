@@ -1,6 +1,6 @@
 # Accueil Cartes
 
-Extension [SillyTavern](https://github.com/SillyTavern/SillyTavern) qui transforme la liste des personnages en cartes, comme un fil d’histoires : image carrée à gauche, titre, extrait et tags à droite.
+Extension [SillyTavern](https://github.com/SillyTavern/SillyTavern) qui transforme **l’écran d’accueil** en fil de cartes, comme une liste d’histoires : image carrée à gauche, titre, extrait et tags à droite.
 
 Pensée pour iPhone. Testée vis-à-vis de SillyTavern 1.19.
 
@@ -13,11 +13,12 @@ Pensée pour iPhone. Testée vis-à-vis de SillyTavern 1.19.
 
 ## Ce que ça change
 
-- L’accueil / la liste des bots passe en cartes horizontales (plus de grilles ni de petits avatars ronds).
+- L’accueil (quand aucune conversation n’est ouverte) affiche tes personnages en cartes horizontales.
+- Les discussions récentes apparaissent en premier, puis les autres personnages.
 - L’extrait vient des notes du créateur, sinon de la description ou du premier message.
 - Les tags du personnage s’affichent en pastilles.
-- Si la fiche a un créateur, il apparaît sous la forme `@nom`.
-- Le chat et les avatars dans la conversation ne sont pas touchés.
+- Si une fiche a un auteur, il apparaît sous la forme `@nom`.
+- Un appui sur une carte ouvre ce personnage.
 
 Tu peux désactiver le style à tout moment dans les réglages de l’extension.
 
