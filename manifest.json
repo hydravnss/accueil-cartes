@@ -1,0 +1,14 @@
+{
+    "display_name": "Accueil Cartes",
+    "loading_order": 25,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "hydravnss",
+    "version": "1.0.0",
+    "minimum_client_version": "1.12.0",
+    "auto_update": true,
+    "homePage": "https://github.com/hydravnss/accueil-cartes",
+    "description": "FR: Liste des personnages en cartes (image à gauche, titre, extrait, tags). EN: Character list as story cards (cover, title, excerpt, tags)."
+}

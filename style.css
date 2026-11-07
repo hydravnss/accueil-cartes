@@ -1,0 +1,199 @@
+/* Accueil Cartes — liste des personnages en fil de cartes */
+
+body.ah-on #rm_print_characters_block {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+}
+
+body.ah-on #rm_print_characters_block > .character_select,
+body.ah-on #rm_print_characters_block > .group_select,
+body.ah-on #rm_print_characters_block > .bogus_folder_select {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+    margin: 0 !important;
+}
+
+body.ah-on #rm_print_characters_block > .character_select .avatar,
+body.ah-on #rm_print_characters_block > .group_select .avatar,
+body.ah-on #rm_print_characters_block > .bogus_folder_select .avatar {
+    width: 88px !important;
+    height: 88px !important;
+    min-width: 88px !important;
+    min-height: 88px !important;
+    max-width: 88px !important;
+    max-height: 88px !important;
+    border-radius: 10px !important;
+    flex: 0 0 88px !important;
+    align-self: flex-start !important;
+    overflow: hidden !important;
+}
+
+body.ah-on #rm_print_characters_block > .character_select .avatar img,
+body.ah-on #rm_print_characters_block > .group_select .avatar img {
+    width: 88px !important;
+    height: 88px !important;
+    min-width: 88px !important;
+    min-height: 88px !important;
+    max-width: 88px !important;
+    max-height: 88px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+}
+
+body.ah-on #rm_print_characters_block .character_select_container,
+body.ah-on #rm_print_characters_block .group_select_container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    gap: 4px !important;
+}
+
+body.ah-on #rm_print_characters_block .character_name_block,
+body.ah-on #rm_print_characters_block .group_name_block {
+    display: flex !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+body.ah-on #rm_print_characters_block .character_select .ch_name,
+body.ah-on #rm_print_characters_block .group_select .ch_name,
+body.ah-on #rm_print_characters_block .bogus_folder_select .ch_name {
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+    white-space: normal !important;
+    text-overflow: ellipsis !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+
+body.ah-on #rm_print_characters_block .ch_additional_info,
+body.ah-on #rm_print_characters_block .ch_add_placeholder,
+body.ah-on #rm_print_characters_block .character_version,
+body.ah-on #rm_print_characters_block .ch_avatar_url,
+body.ah-on #rm_print_characters_block .ch_fav_icon,
+body.ah-on #rm_print_characters_block .group_fav_icon,
+body.ah-on #rm_print_characters_block .character_name_block_sub_line {
+    display: none !important;
+}
+
+body.ah-on #rm_print_characters_block .ch_description,
+body.ah-on.charListGrid #rm_print_characters_block .ch_description,
+body.ah-on #rm_print_characters_block .group_select_block_list,
+body.ah-on.charListGrid #rm_print_characters_block .group_select_block_list {
+    display: none !important;
+}
+
+body.ah-on #rm_print_characters_block .ch_description.ah-has-desc,
+body.ah-on.charListGrid #rm_print_characters_block .ch_description.ah-has-desc,
+body.ah-on #rm_print_characters_block .group_select_block_list.ah-has-desc,
+body.ah-on.charListGrid #rm_print_characters_block .group_select_block_list.ah-has-desc {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 3 !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+    margin: 2px 0 0 !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    font-weight: 400 !important;
+    opacity: 0.62;
+}
+
+body.ah-on #rm_print_characters_block .tags_inline,
+body.ah-on.charListGrid #rm_print_characters_block .tags_inline {
+    display: none !important;
+}
+
+body.ah-on #rm_print_characters_block .tags_inline.ah-has-tags,
+body.ah-on.charListGrid #rm_print_characters_block .tags_inline.ah-has-tags {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+    max-height: none !important;
+    width: 100% !important;
+}
+
+body.ah-on #rm_print_characters_block .tags_inline .tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 9%, transparent) !important;
+    color: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 64%, transparent) !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 4px 10px !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    flex: 0 0 auto !important;
+}
+
+body.ah-on #rm_print_characters_block .tags_inline .tag_remove {
+    display: none !important;
+}
+
+body.ah-on #rm_print_characters_block .ah-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.2;
+    opacity: 0.58;
+    min-width: 0;
+}
+
+body.ah-on #rm_print_characters_block .ah-creator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.ah-on #rm_print_characters_block .ah-creator-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    background: color-mix(in srgb, var(--SmartThemeBodyColor, currentColor) 16%, transparent);
+    flex: 0 0 18px;
+    text-transform: uppercase;
+}
+
+body.ah-on #rm_print_characters_block .ah-fav {
+    color: inherit;
+}
